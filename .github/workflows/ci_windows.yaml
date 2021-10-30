@@ -9,12 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        libt_version: ["2.0.4", "1.2.14"]
-        qbt_gui: ["GUI=ON", "GUI=OFF"]
         qt_version: ["5", "6"]
-        exclude:
-          - libt_version: "1.2.14"
-            qt_version: "6"
 
     env:
       libtorrent_path: "${{ github.workspace }}/libtorrent"
@@ -32,7 +27,6 @@ jobs:
         msystem: MINGW64
         update: true
         install: >-
-          git
           mingw-w64-x86_64-qt${{ matrix.qt_version }}-static
           mingw-w64-x86_64-cmake
           mingw-w64-x86_64-ninja
@@ -40,22 +34,7 @@ jobs:
           mingw-w64-x86_64-openssl
           mingw-w64-x86_64-zlib
           mingw-w64-x86_64-boost
-
-    - name: Install libtorrent
-      run: |
-        git clone --branch v${{ matrix.libt_version }} --depth 1 https://github.com/arvidn/libtorrent.git
-        cd libtorrent
-        git submodule update --init --recursive
-        cmake \
-          -B build \
-          -G "Ninja" \
-          -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-          -DCMAKE_INSTALL_PREFIX="${{ env.libtorrent_path }}" \
-          -DBUILD_SHARED_LIBS=OFF \
-          -Ddeprecated-functions=OFF \
-          -Dstatic_runtime=ON
-        cmake --build build
-        cmake --install build
+          mingw-w64-x86_64-libtorrent-rasterbar
 
     - name: Build qBittorrent
       run: |
@@ -65,8 +44,6 @@ jobs:
           -DCMAKE_BUILD_TYPE=RelWithDebInfo \
           -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
           -DQT${{ matrix.qt_version }}=ON \
-          -D${{ matrix.qbt_gui }} \
-          -DLibtorrentRasterbar_DIR="${{ env.libtorrent_path }}/lib/cmake/LibtorrentRasterbar" \
           -DVERBOSE_CONFIGURE=ON \
           --graphviz=build/target_graph.dot
         cmake --build build
@@ -74,12 +51,11 @@ jobs:
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: qBittorrent-CI_Windows-x64_${{ matrix.qbt_gui }}_libtorrent-${{ matrix.libt_version }}_Qt-${{ matrix.qt_version }}
+        name: qBittorrent-CI_Windows-x64_Qt-${{ matrix.qt_version }}
         path: |
           build/compile_commands.json
           build/install_manifest.txt
           build/target_graph.dot
           build/qbittorrent.exe
-          build/qbittorrent-nox.exe
           libtorrent/cmake-build-dir/compile_commands.json
           libtorrent/cmake-build-dir/target_graph.dot
