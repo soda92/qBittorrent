@@ -70,7 +70,6 @@ jobs:
             -DVERBOSE_CONFIGURE=ON \
             --graphviz=build/target_graph.dot
           cmake --build build
-          cmake --install build
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v2
