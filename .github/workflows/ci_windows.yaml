@@ -80,7 +80,7 @@ jobs:
             build/compile_commands.json
             build/install_manifest.txt
             build/target_graph.dot
-            build/qbittorrent
-            build/qbittorrent-nox
+            build/qbittorrent.exe
+            build/qbittorrent-nox.exe
             libtorrent/cmake-build-dir/compile_commands.json
             libtorrent/cmake-build-dir/target_graph.dot
