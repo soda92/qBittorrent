@@ -11,8 +11,6 @@ jobs:
       matrix:
         qt_version: ["5", "6"]
 
-    env:
-      libtorrent_path: "${{ github.workspace }}/libtorrent"
     defaults:
       run:
         shell: msys2 {0}
