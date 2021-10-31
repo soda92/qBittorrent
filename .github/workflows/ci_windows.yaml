@@ -18,11 +18,19 @@ jobs:
       run:
         shell: msys2 {0}
 
-    steps:
     - name: '🧰 Checkout'
       uses: actions/checkout@v2
       with:
         fetch-depth: 0
+
+    steps:
+    - name: '🗑️ clean space'
+      run: |
+        rm -rf /c/'Program Files'/dotnet
+        rm -rf /c/'Program Files'/LLVM
+        rm -rf /c/'Program Files'/'Azure Cosmos DB Emulator'
+        rm -rf /c/'Program Files'/'MongoDB'
+        rm -rf /c/'Program Files'/'PostgreSQL'
 
     - name: 'setup msys2'
       uses: msys2/setup-msys2@v2
