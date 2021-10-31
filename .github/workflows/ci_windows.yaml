@@ -10,8 +10,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # - { icon: '⬛', qt_version: 5}
-          - { icon: '🟦', qt_version: 6}
+          - { icon: '⬛', qt_version: 5}
+          # - { icon: '🟦', qt_version: 6}
     name: 🚧${{ matrix.icon }} Qt${{ matrix.qt_version }} | build
 
     defaults:
