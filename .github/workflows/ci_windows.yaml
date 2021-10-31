@@ -18,12 +18,12 @@ jobs:
       run:
         shell: msys2 {0}
 
+    steps:
     - name: '🧰 Checkout'
       uses: actions/checkout@v2
       with:
         fetch-depth: 0
 
-    steps:
     - name: '🗑️ clean space'
       run: |
         rm -rf /c/'Program Files'/dotnet
