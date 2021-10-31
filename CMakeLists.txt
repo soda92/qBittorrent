@@ -21,6 +21,7 @@ set(minZlibVersion 1.2.11)
 
 # static linking to libzstd, zlib1
 set(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
+# set(CMAKE_EXE_LINKER_FLAGS "-static -static-libgcc -static-libstdc++")
 
 # features (some are platform-specific)
 include(CheckCXXSourceCompiles) # TODO: migrate to CheckSourceCompiles in CMake >= 3.19

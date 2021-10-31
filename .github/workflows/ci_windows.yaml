@@ -38,6 +38,7 @@ jobs:
           mingw-w64-x86_64-zlib
           mingw-w64-x86_64-boost
           mingw-w64-x86_64-libtorrent-rasterbar
+          mingw-w64-x86_64-python
 
     - name: '🚧 Build package'
       run: |
@@ -50,15 +51,13 @@ jobs:
           -DVERBOSE_CONFIGURE=ON \
           --graphviz=build/target_graph.dot
         cmake --build build
+        mkdir dist
+        cp build/qbittorrent.exe dist
+        python ldd-check.py dist/qbittorrent.exe
+
 
     - name: '📤 upload package'
       uses: actions/upload-artifact@v2
       with:
         name: qBittorrent-CI_Windows-x64_Qt${{ matrix.qt_version }}
-        path: |
-          build/compile_commands.json
-          build/install_manifest.txt
-          build/target_graph.dot
-          build/qbittorrent.exe
-          libtorrent/cmake-build-dir/compile_commands.json
-          libtorrent/cmake-build-dir/target_graph.dot
+        path: dist
