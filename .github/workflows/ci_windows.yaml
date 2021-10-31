@@ -25,12 +25,13 @@ jobs:
         fetch-depth: 0
 
     - name: '🗑️ clean space'
+      shell: powershell
       run: |
-        rm -rf /c/'Program Files'/dotnet
-        rm -rf /c/'Program Files'/LLVM
-        rm -rf /c/'Program Files'/'Azure Cosmos DB Emulator'
-        rm -rf /c/'Program Files'/'MongoDB'
-        rm -rf /c/'Program Files'/'PostgreSQL'
+        Remove-Item -Recurse C:/'Program Files'/dotnet
+        Remove-Item -Recurse C:/'Program Files'/LLVM
+        Remove-Item -Recurse C:/'Program Files'/'Azure Cosmos DB Emulator'
+        Remove-Item -Recurse C:/'Program Files'/'MongoDB'
+        Remove-Item -Recurse C:/'Program Files'/'PostgreSQL'
 
     - name: 'setup msys2'
       uses: msys2/setup-msys2@v2
