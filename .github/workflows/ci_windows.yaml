@@ -51,8 +51,8 @@ jobs:
           -DVERBOSE_CONFIGURE=ON \
           --graphviz=build/target_graph.dot
         cmake --build build
-        mkdir build/dist
-        cp build/qbittorrent.exe build/dist
+        mkdir build/dist/
+        cp build/qbittorrent.exe build/dist/
         python ldd-check.py build/dist/qbittorrent.exe
 
 
@@ -60,4 +60,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: qBittorrent-CI_Windows-x64_Qt${{ matrix.qt_version }}
-        path: build/dist
+        path: build/dist/
