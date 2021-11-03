@@ -13,8 +13,7 @@ jobs:
         shell: msys2 {0}
 
     steps:
-    - name: '🧰 Checkout'
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
       with:
         fetch-depth: 0
         submodules: true
@@ -48,8 +47,7 @@ jobs:
         cmake --build build
         mkdir build/upload/
         cp build/qbittorrent.exe build/upload/
-        python ldd-check/ldd-check.py build/upload/qbittorrent.exe
-
+        python ldd-check/ldd-check.py -cp build/upload/qbittorrent.exe
 
     - name: '📤 upload package'
       uses: actions/upload-artifact@v2
